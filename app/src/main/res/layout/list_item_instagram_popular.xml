@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
+
+    <ImageView
+        android:id="@+id/ivAuthor"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:contentDescription="Image"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true" />
+
+    <TextView
+        android:id="@+id/tvFullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:paddingLeft="5dp"
+        android:text="FullName"
+        android:layout_toRightOf="@id/ivAuthor"/>
+
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:paddingLeft="5dp"
+        android:text="UserName"
+        android:layout_toRightOf="@id/ivAuthor"
+        android:textColor="@color/blue"
+        android:layout_below="@id/tvFullName"/>
+
+    <ImageView
+        android:id="@+id/ivPopular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="Image"
+        android:layout_below="@id/ivAuthor"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true" />
+
+    <TextView
+        android:id="@+id/tvCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivPopular"
+        android:paddingTop="5dp"
+        android:text="Caption" />
+
+    <TextView
+        android:id="@+id/tvLikes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvCaption"
+        android:paddingTop="5dp"
+        android:text="Likes"
+        android:textColor="@color/blue" />
+
+    <TextView
+        android:id="@+id/tvCommentsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvLikes"
+        android:paddingTop="5dp"
+        android:text="0 comments"
+        android:textColor="@color/blue" />
+
+    <ImageView
+        android:id="@+id/ivCommentUserPic"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:contentDescription="Image"
+        android:layout_below="@id/tvCommentsCount"
+        android:paddingTop="5dp"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true" />
+
+    <TextView
+        android:id="@+id/tvCommentText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:paddingLeft="5dp"
+        android:text="CommentText"
+        android:layout_toRightOf="@id/ivCommentUserPic"
+        android:layout_below="@id/tvCommentsCount"/>
+    <TextView
+        android:id="@+id/tvCommentDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:paddingLeft="1dp"
+        android:text="CommentDate"
+        android:layout_below="@id/ivCommentUserPic"/>
+    <TextView
+        android:id="@+id/tvCommentMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue"
+        android:paddingLeft="1dp"
+        android:text="...more"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tvCommentText"/>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center_horizontal|center_horizontal"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

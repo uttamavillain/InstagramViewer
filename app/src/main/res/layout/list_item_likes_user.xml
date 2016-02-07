@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
+
+    <ImageView
+        android:id="@+id/ivAuthor"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:contentDescription="Image"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true" />
+
+    <TextView
+        android:id="@+id/tvFullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:paddingLeft="5dp"
+        android:text="FullName"
+        android:layout_toRightOf="@id/ivAuthor"/>
+
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:paddingLeft="5dp"
+        android:text="UserName"
+        android:layout_toRightOf="@id/ivAuthor"
+        android:layout_below="@id/tvFullName"/>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center_horizontal" />
+
+</RelativeLayout>

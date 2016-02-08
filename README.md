@@ -2,7 +2,7 @@
 
 **InstagamViewer** is an android app that allows a user to check out popular photos from Instagram. The app utilizes Instagram API to display images and basic image information to the user.
 
-Time spent: **X** hours spent in total
+Time spent: **15** hours spent in total
 
 ## User Stories
 
@@ -30,13 +30,14 @@ The following **bonus** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you can get done to improve the app functionality!
+* [X] If the location is available, you can click and view the place in Google Maps.
+* [X] Click on the username to see his full profile in Instagram using WebView.
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![Video Walkthrough](Demo.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -48,6 +49,7 @@ Describe any challenges encountered while building the app.
 
 - [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
 - [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
+- [Butterknife] (http://jakewharton.github.io/butterknife/) A annotation library to reduce view boilerplate
 
 ## License
 

@@ -45,11 +45,30 @@
         android:scaleType="fitXY"
         android:adjustViewBounds="true" />
 
+    <ImageView
+        android:id="@+id/ivLocPin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Image"
+        android:layout_below="@id/ivPopular"
+        android:src="@drawable/pin"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true" />
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivPopular"
+        android:layout_toRightOf="@id/ivLocPin"
+        android:text="Location not available"
+        android:textColor="@color/blue" />
+
     <TextView
         android:id="@+id/tvCaption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ivPopular"
+        android:layout_below="@id/tvLocation"
         android:paddingTop="5dp"
         android:text="Caption" />
 

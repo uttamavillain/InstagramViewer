@@ -8,11 +8,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,6 +128,33 @@ public class MainActivity extends AppCompatActivity {
             TextView tvCommentMore = (TextView) convertView.findViewById(R.id.tvCommentMore);
             TextView tvCommentText = (TextView) convertView.findViewById(R.id.tvCommentText);
             TextView tvCommentDate = (TextView) convertView.findViewById(R.id.tvCommentDate);
+            TextView tvLocation = (TextView) convertView.findViewById(R.id.tvLocation);
+            Log.d("Instagram",instagram.toString());
+            if(instagram.isLocationAvail()) {
+                Log.d("Instagram","inside location block");
+                tvLocation.setText(instagram.getLocationText());
+                tvLocation.setClickable(true);
+                tvLocation.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String posLat = instagram.getLocationLat();
+                        String posLong = instagram.getLocationLng();
+                        Uri geoLocation = Uri.parse("geo:" + posLat + "," + posLong);
+
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(geoLocation);
+
+                        if (intent.resolveActivity(getPackageManager()) != null) {
+                            startActivity(intent);
+                        } else {
+                            Log.d(TAG, "Couldn't call " + geoLocation.toString() + ", no receiving apps installed!");
+                        }
+                    }
+                });
+            }
+            else {
+                //tvLocation.setVisibility(View.GONE);
+            }
 
             // Populate the data into the template view using the data object
             tvFullName.setText(instagram.getUser().getFullName());

@@ -1,5 +1,7 @@
 package com.codepath.vijay.instagramviewer;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,8 +24,18 @@ public class Instagram {
     private int commentCount;
     private ArrayList<Comment> comments = new ArrayList<Comment>();
     private boolean isImage;
+    private String locationText;
+    private String locationLat;
+    private String locationLng;
+    private boolean isLocationAvail;
 
-    public Instagram(String imageUrl, String videoUrl, String caption, User user, int likeCount, ArrayList<User> likes, int commentCount, ArrayList<Comment> comments, Boolean isImage) {
+    public Instagram(String imageUrl, String videoUrl, String caption, User user, int likeCount, ArrayList<User> likes, int commentCount,
+                     ArrayList<Comment> comments,
+                     Boolean isImage,
+                     String locationText,
+                     String locationLat,
+                     String locationLng,
+                     boolean isLocationAvail) {
         this.imageUrl = imageUrl;
         this.videoUrl = videoUrl;
         this.caption = caption;
@@ -33,6 +45,10 @@ public class Instagram {
         this.commentCount = commentCount;
         this.comments = comments;
         this.isImage = isImage;
+        this.locationText = locationText;
+        this.locationLat = locationLat;
+        this.locationLng = locationLng;
+        this.isLocationAvail = isLocationAvail;
     }
 
     public String getImageUrl() {
@@ -43,8 +59,25 @@ public class Instagram {
         return videoUrl;
     }
 
+    public String getLocationText() {
+        return locationText;
+    }
+
+    public String getLocationLat() {
+        return locationLat;
+    }
+
+    public String getLocationLng() {
+        return locationLng;
+    }
+
+    public boolean isLocationAvail() {
+        return isLocationAvail;
+    }
+
     public static Instagram fromJson(JSONObject jsonObject) {
         Instagram ret = null;
+
         try {
             Boolean isImage = jsonObject.getString("type").equals("image");
             String imageUrl = jsonObject.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
@@ -55,7 +88,22 @@ public class Instagram {
             ArrayList<User> likes = getLikesUserList(jsonObject.getJSONObject("likes").getJSONArray("data"));
             int commentCount = jsonObject.getJSONObject("comments").getInt("count");
             ArrayList<Comment> comments = getCommentsList(jsonObject.getJSONObject("comments").getJSONArray("data"));
-            ret = new Instagram(imageUrl, videoUrl, caption, user, likeCount, likes, commentCount, comments, isImage);
+            boolean isLocationAvail = false;
+            JSONObject locaton = null;
+            try {
+                locaton = jsonObject.getJSONObject("location");
+                isLocationAvail = true;
+                Log.d(TAG, "location available");
+            } catch(JSONException e) {
+            }
+            String locationText = isLocationAvail?locaton.getString("name"):null;
+            String locationLat = isLocationAvail?locaton.getString("latitude"):null;
+            String locationLng = isLocationAvail?locaton.getString("longitude"):null;
+            ret = new Instagram(imageUrl, videoUrl, caption, user, likeCount, likes, commentCount, comments, isImage,
+                    locationText,
+                    locationLat,
+                    locationLng,
+                    isLocationAvail);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -169,7 +217,7 @@ public class Instagram {
 
     @Override
     public String toString() {
-        return "\n"+user.getFullName()+" "+caption+" "+imageUrl;
+        return "\n"+user.getFullName()+" "+caption+" "+imageUrl+" "+isLocationAvail;
     }
 
     public boolean isImage() {

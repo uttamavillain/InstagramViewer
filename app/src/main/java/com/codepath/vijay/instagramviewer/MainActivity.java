@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             final ImageView ivPopular = (ImageView) convertView.findViewById(R.id.ivPopular);
             final ImageView ivAuthor = (ImageView) convertView.findViewById(R.id.ivAuthor);
             TextView tvFullName = (TextView) convertView.findViewById(R.id.tvFullName);
-            TextView tvUserName = (TextView) convertView.findViewById(R.id.tvUserName);
+            final TextView tvUserName = (TextView) convertView.findViewById(R.id.tvUserName);
             TextView tvCaption = (TextView) convertView.findViewById(R.id.tvCaption);
             TextView tvLikes = (TextView) convertView.findViewById(R.id.tvLikes);
             TextView tvCommentsCount = (TextView) convertView.findViewById(R.id.tvCommentsCount);
@@ -130,6 +130,15 @@ public class MainActivity extends AppCompatActivity {
             // Populate the data into the template view using the data object
             tvFullName.setText(instagram.getUser().getFullName());
             tvUserName.setText(instagram.getUser().getUserName());
+            tvUserName.setClickable(true);
+            tvUserName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), InstagramBrowserActivity.class);
+                    intent.putExtra("url","https://www.instagram.com/"+tvUserName.getText()+"/");
+                    startActivity(intent);
+                }
+            });
             tvCaption.setText(instagram.getCaption());
             tvLikes.setText(instagram.getLikeCount() + " " + "likes");
             tvLikes.setClickable(true);
@@ -182,10 +191,24 @@ public class MainActivity extends AppCompatActivity {
 
             Picasso.with(getContext()).load(instagram.getUser().getProfilePic()).transform(transformation).placeholder(R.drawable.profile_pc).into(ivAuthor);
 
-            Target target = new Target() {
-                @Override
-                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                    if(!instagram.isImage()) {
+            if(instagram.isImage()) {
+                Picasso.with(getContext()).load(instagram.getImageUrl()).placeholder(R.drawable.blurred_placeholder).into(ivPopular, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        if (progressBar != null) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                    @Override
+                    public void onError() {
+
+                    }
+                });
+            }
+            else {
+                Target target = new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                         Bitmap newImag = overlay(bitmap, BitmapFactory.decodeResource(getContext().getResources(), R.drawable.play));
                         ivPopular.setImageBitmap(newImag);
                         ivPopular.setOnClickListener(new View.OnClickListener() {
@@ -196,23 +219,20 @@ public class MainActivity extends AppCompatActivity {
                         });
                         progressBar.setVisibility(View.GONE);
                     }
-                    else {
-                        ivPopular.setImageBitmap(bitmap);
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
                         progressBar.setVisibility(View.GONE);
                     }
-                }
 
-                @Override
-                public void onBitmapFailed(Drawable errorDrawable) {
-                    progressBar.setVisibility(View.GONE);
-                }
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
 
-                @Override
-                public void onPrepareLoad(Drawable placeHolderDrawable) {
+                    }
+                };
+                Picasso.with(getContext()).load(instagram.getImageUrl()).placeholder(R.drawable.blurred_placeholder).into(target);
+            }
 
-                }
-            };
-            Picasso.with(getContext()).load(instagram.getImageUrl()).placeholder(R.drawable.blurred_placeholder).into(target);
             //Return the completed view to render on screen
             return convertView;
         }

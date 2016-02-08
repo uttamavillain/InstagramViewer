@@ -23,6 +23,12 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:configChanges="orientation|screenSize">
         </activity>
+        <activity
+            android:name=".InstagramBrowserActivity"
+            android:label="InstagramViewer Browser"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:configChanges="orientation|screenSize">
+        </activity>
     </application>
 
 </manifest>

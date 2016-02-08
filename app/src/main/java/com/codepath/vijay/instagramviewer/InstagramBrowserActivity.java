@@ -13,7 +13,8 @@ import butterknife.ButterKnife;
  * Created by uttamavillain on 2/7/16.
  */
 public class InstagramBrowserActivity extends Activity {
-    @Bind(R.id.webview) WebView webview;
+    @Bind(R.id.webview)
+    WebView webview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

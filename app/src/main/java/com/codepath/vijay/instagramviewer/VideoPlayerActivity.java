@@ -9,27 +9,32 @@ import android.os.Bundle;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by uttamavillain on 2/7/16.
  */
 public class VideoPlayerActivity extends Activity implements MediaPlayer.OnCompletionListener {
+    @Bind(R.id.videoView)
+    VideoView videoView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.video_player_activity);
-
-        VideoView v = (VideoView) findViewById(R.id.videoView);
+        ButterKnife.bind(this);
 
         String url = null;
         if (getIntent().getExtras() != null) {
             url = getIntent().getExtras().getString("url");
 
             if (url != null) {
-                v.setMediaController(new MediaController(this));
-                v.setOnCompletionListener(this);
-                v.setVideoURI(Uri.parse(url));
-                v.start();
+                videoView.setMediaController(new MediaController(this));
+                videoView.setOnCompletionListener(this);
+                videoView.setVideoURI(Uri.parse(url));
+                videoView.start();
             }
         }
 

@@ -89,16 +89,20 @@ public class Instagram {
             int commentCount = jsonObject.getJSONObject("comments").getInt("count");
             ArrayList<Comment> comments = getCommentsList(jsonObject.getJSONObject("comments").getJSONArray("data"));
             boolean isLocationAvail = false;
+            String locationText = null;
             JSONObject locaton = null;
+            String locationLat = null;
+            String locationLng = null;
             try {
                 locaton = jsonObject.getJSONObject("location");
                 isLocationAvail = true;
+                locationText = locaton.getString("name");
+                locationLat = locaton.getString("latitude");
+                locationLng = locaton.getString("longitude");
                 Log.d(TAG, "location available");
             } catch(JSONException e) {
             }
-            String locationText = isLocationAvail?locaton.getString("name"):null;
-            String locationLat = isLocationAvail?locaton.getString("latitude"):null;
-            String locationLng = isLocationAvail?locaton.getString("longitude"):null;
+
             ret = new Instagram(imageUrl, videoUrl, caption, user, likeCount, likes, commentCount, comments, isImage,
                     locationText,
                     locationLat,
